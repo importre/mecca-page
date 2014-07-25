@@ -1,0 +1,14 @@
+{
+  "name": "mecca",
+  "homepage": "https://github.com/importre/mecca",
+  "_release": "bfd9d5d2c8",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "bfd9d5d2c8f073232dd456d08381fe76a2ec7fe0"
+  },
+  "_source": "git://github.com/importre/mecca.git",
+  "_target": "master",
+  "_originalSource": "importre/mecca",
+  "_direct": true
+}

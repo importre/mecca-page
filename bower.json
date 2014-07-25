@@ -1,0 +1,13 @@
+{
+  "name": "mecca-page",
+  "version": "0.0.0",
+  "dependencies": {
+    "core-elements": "Polymer/core-elements#~0.3.4",
+    "flatiron-director": "Polymer/flatiron-director#~0.3.0",
+    "octicons": "*",
+    "paper-elements": "Polymer/paper-elements#~0.3.4",
+    "polymer": "Polymer/polymer#~0.3.4",
+    "facebook-button": "~0.1.5"
+  },
+  "devDependencies": {}
+}

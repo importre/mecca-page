@@ -1,0 +1,127 @@
+<link rel="import" href="../bower_components/core-drawer-panel/core-drawer-panel.html">
+<link rel="import" href="../bower_components/core-header-panel/core-header-panel.html">
+<link rel="import" href="../bower_components/core-toolbar/core-toolbar.html">
+<link rel="import" href="../bower_components/flatiron-director/flatiron-director.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../elements/mecca-sidebar.html">
+<link rel="import" href="../elements/repo-list.html">
+
+<polymer-element name="mecca-app">
+<template>
+  <link rel="stylesheet" href="../bower_components/octicons/octicons/octicons.css">
+
+  <style>
+    :host {
+      display: block;
+    }
+
+    [drawer] {
+      background-color: #fff;
+      box-shadow: 1px 0 1px rgba(0, 0, 0, 0.1);
+    }
+
+    [main] {
+      height: 100%;
+      background-color: #eee;
+    }
+
+    [content] {
+      margin: 50px;
+    }
+
+    core-toolbar {
+      background-color: #3f51b5; /* indigo color */
+      color: white;
+    }
+
+    core-toolbar.sidebar {
+      background-color: white;
+      color: black;
+    }
+
+    #drawerPanel:not([narrow]) #menuButton {
+      display: none;
+    }
+
+    a {color: black; text-decoration: none;}
+  </style>
+
+  <flatiron-director route="{{route}}" autoHash></flatiron-director>
+
+  <core-drawer-panel id="drawerPanel" narrow="{{narrow}}" responsiveWidth="{{responsiveWidth}}">
+
+  <!-- drawer menu -->
+  <div vertical layout drawer>
+
+    <core-header-panel navigation flex mode="seamed">
+    <core-toolbar class="sidebar">
+    <span class="mega-octicon octicon-octoface"></span> MECCA
+    </core-toolbar>
+    <mecca-sidebar />
+    </core-header-panel>
+
+  </div>
+
+  <!-- detail -->
+  <core-header-panel main navigation flex mode="seamed">
+
+  <core-toolbar>
+  <paper-icon-button id="menuButton" icon="menu" on-tap="{{togglePanel}}"></paper-icon-button>
+
+  <div tool class="toolbar bottom indent">
+    <div id="categoryTitle">{{categoryTitle}}</div>
+  </div>
+  </core-toolbar>
+
+  <div content horizontal center-justified layout>
+    <repo-list show="{{route}}" url="{{url}}"></repo-list>
+  </div>
+
+  </core-header-panel>
+
+  </core-drawer-panel>
+</template>
+<script>
+
+  Polymer('mecca-app', {
+    publish: {
+      responsiveWidth: '600px'
+    },
+
+    togglePanel: function() {
+      this.$.drawerPanel.togglePanel();
+    },
+
+    closeDrawer: function() {
+      this.$.drawerPanel.closeDrawer();
+    },
+
+    routeChanged: function() {
+      this.async(function() {
+        if (this.route === 'Android-Library') {
+          this.url = './data/android/lib_repos.json';
+          this.categoryTitle = 'Android Library';
+        } else if (this.route === 'Android-Android-L') {
+          this.url = './data/android/l_repos.json';
+          this.categoryTitle = 'Android-L';
+        } else if (this.route === 'Android-Wearable') {
+          this.url = './data/android/wear_repos.json';
+          this.categoryTitle = 'Android Wearable';
+        } else if (this.route === 'Android-Application') {
+          this.url = './data/android/app_repos.json';
+          this.categoryTitle = 'Android Application';
+        } else if (this.route === 'Polymer-Polymer') {
+          this.url = './data/polymer/repos.json';
+          this.categoryTitle = 'Polymer';
+        } else {
+          this.url = null;
+          this.categoryTitle = 'null';
+        }
+        this.closeDrawer();
+      }, null, 1000);
+    }
+  });
+
+</script>
+</polymer-element>
